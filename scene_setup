@@ -1,0 +1,7 @@
+import bpy
+bpy.app.debug = True
+
+camera = bpy.data.objects['Camera']
+
+camera.location = (7, 4.5, 23)
+camera.rotation_euler = (0, 0, 0)

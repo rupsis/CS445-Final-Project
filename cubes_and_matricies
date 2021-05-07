@@ -1,0 +1,49 @@
+import bpy
+import math
+from mathutils import Matrix
+
+# Settings
+name = 'Cubert'
+
+
+# Utility Functions
+
+offset = (0, 0, 1)
+
+def vert(x,y,z):
+    """ Make a vertex """
+
+    return (x + offset[0], y + offset[1], z + offset[2])
+
+
+
+# Cube Code
+
+verts = [vert(1.0, 1.0, -1.0),
+         vert(1.0, -1.0, -1.0),
+         vert(-1.0, -1.0, -1.0),
+         vert(-1.0, 1.0, -1.0),
+         vert(1.0, 1.0, 1.0),
+         vert(1.0, -1.0, 1.0),
+         vert(-1.0, -1.0, 1.0),
+         vert(-1.0, 1.0, 1.0)]
+
+faces = [(0, 1, 2, 3),
+         (4, 7, 6, 5),
+         (0, 4, 5, 1),
+         (1, 5, 6, 2),
+         (2, 6, 7, 3),
+         (4, 0, 3, 7)]
+
+
+# Add Object to Scene
+
+mesh = bpy.data.meshes.new(name)
+mesh.from_pydata(verts, [], faces)
+
+obj = bpy.data.objects.new(name, mesh)
+scene = bpy.context.scene
+scene.collection.objects.link(obj)
+
+bpy.context.view_layer.objects.active = obj
+obj.select_set(state=True)
